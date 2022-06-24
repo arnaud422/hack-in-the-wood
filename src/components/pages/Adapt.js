@@ -52,7 +52,7 @@ const Adapt = () => {
         const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
         document.getElementById('test').innerText = `${position.coords.latitude} ET ${position.coords.longitude}`
         
-        if(long <= 2){
+        if(long <= 7){
             vibrate()
         }      
       }
