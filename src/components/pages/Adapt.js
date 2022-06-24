@@ -30,7 +30,7 @@ const Adapt = () => {
     function getLocation() {
         if (navigator.geolocation) {
             console.log('test')
-            navigator.geolocation.getCurrentPosition(showPosition);
+            navigator.geolocation.watchPosition(showPosition);
         } else { 
           return false
         }
