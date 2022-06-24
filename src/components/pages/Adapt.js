@@ -41,7 +41,7 @@ const Adapt = () => {
         // console.log(location.Latitude)
         console.log(position.coords.latitude,position.coords.longitude)
         const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
-        setDist(`${long}`)
+        setDist(`${position.coords.latitude} - ${position.coords.longitude}`)
         console.log(long)
         if(long <= 2){
             vibrate()
