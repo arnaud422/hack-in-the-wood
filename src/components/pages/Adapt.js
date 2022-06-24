@@ -7,6 +7,7 @@ const Adapt = () => {
 
     // const [arrets, setArrets] = useState([])
     const [arret, setArret] = useState("")
+    const [dist, setDist] = useState("")
     const arrets = {
         "stops":
             [
@@ -40,8 +41,9 @@ const Adapt = () => {
         // console.log(location.Latitude)
         console.log(position.coords.latitude,position.coords.longitude)
         const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
+        setDist(`${long}`)
         console.log(long)
-        if(long == 2){
+        if(long <= 2){
             vibrate()
         }      
       }
@@ -54,7 +56,7 @@ const Adapt = () => {
     }
 
     function estAuPost(){
-        setInterval(getLocation(),2000)
+        setInterval(getLocation(),1000)
     }
     
     // useEffect(()=>{
@@ -80,6 +82,7 @@ const Adapt = () => {
                        arrets.stops.map((arret, i)=> <option value={arret.name} key={i}/>)         
                     }
                 </datalist>
+                <span className='dist'>{dist}</span>
             </div>
         </>
     );
