@@ -7,7 +7,7 @@ const Adapt = () => {
 
     // const [arrets, setArrets] = useState([])
     const [arret, setArret] = useState("")
-    const [dist, setDist] = useState("")
+    const [dist, setDist] = useState(navigator.geolocation.watchPosition(showPosition))
     const arrets = {
         "stops":
             [
@@ -27,13 +27,13 @@ const Adapt = () => {
         return Math.floor(d * 1000);
     }
 
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.watchPosition(showPosition);
-        } else { 
-          return false
-        }
-      }
+    // function getLocation() {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.watchPosition(showPosition);
+    //     } else { 
+    //       return false
+    //     }
+    //   }
 
       function showPosition(position) {
         const location = arrets.stops.find((spot)=> spot.name === arret)
@@ -65,7 +65,7 @@ const Adapt = () => {
 
     function estAuPost(){
         // setInterval(()=>{getLocation()},1000)
-        getLocation()
+        // getLocation()
     }
     
     // useEffect(()=>{
