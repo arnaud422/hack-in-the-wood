@@ -7,7 +7,8 @@ const Adapt = () => {
 
     // const [arrets, setArrets] = useState([])
     const [arret, setArret] = useState("")
-    const [dist, setDist] = useState(navigator.geolocation.watchPosition(showPosition))
+    const [dist, setDist] = useState()
+
     const arrets = {
         "stops":
             [
@@ -27,52 +28,41 @@ const Adapt = () => {
         return Math.floor(d * 1000);
     }
 
-    // function getLocation() {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.watchPosition(showPosition);
-    //     } else { 
-    //       return false
-    //     }
-    //   }
-
-      function showPosition(position) {
-        const location = arrets.stops.find((spot)=> spot.name === arret)
-        console.log(location)
-        if(location === undefined) return
-        // console.log(location.Latitude)
-        console.log(position.coords.latitude,position.coords.longitude)
-        const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
-        setDist(`${long}`)
-        console.log(long)
-
-        var infopos = "Position déterminée :\n";
-        infopos += "Latitude : "+position.coords.latitude +"\n";
-        infopos += "Longitude: "+position.coords.longitude+"\n";
-        infopos += "Altitude : "+position.coords.altitude +"\n";
-        infopos += "Vitesse  : "+position.coords.speed +"\n";
-        document.getElementById("infoposition").innerHTML = infopos;
-        if(long <= 2){
-            vibrate()
-        }      
-      }
-
     const vibrate = ()=>{
         window.navigator.vibrate([700,300,700])
     }
+
     const handleArrets = (e)=>{
         setArret(e.target.value)
     }
 
-    function estAuPost(){
-        // setInterval(()=>{getLocation()},1000)
-        // getLocation()
-    }
+      function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.watchPosition(showPosition, err=>{console.log(err)},  { enableHighAccuracy: true, maximumAge: 100, timeout: 500000 });
+        } else { 
+          return false
+        }
+      }
+
+      function showPosition(position) {
+        const location = arrets.stops.find((spot)=> spot.name === arret)
+
+        if(location === undefined) return
+
+        const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
+        setDist(long)
+        if(long <= 2){
+            vibrate()
+        }      
+      }
+    
     
     // useEffect(()=>{
     //     fetch('https://static.tectime.be/stops?all=true')
     //     .then(response => response.json())
     //     .then(data => setArrets(data.StopsResult));
     // },[])
+
     return (
         <>
             <div className='box-transport-method'>       
@@ -84,7 +74,7 @@ const Adapt = () => {
 
             <div className="choice-stops">
                 <input list="stops" id='search' onChange={handleArrets}/>
-                <button onClick={estAuPost}>commencer</button>
+                <button onClick={getLocation}>commencer</button>
 
                 <datalist id='stops'>
                     {
@@ -92,7 +82,6 @@ const Adapt = () => {
                     }
                 </datalist>
                 <span className='dist'>{dist}</span>
-                <span id='infoposition'></span>
             </div>
         </>
     );
