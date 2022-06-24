@@ -1,0 +1,19 @@
+body{
+    background-image: url(../../../public/background/bg-1.png);
+    background-repeat:no-repeat;
+	background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.icon{
+    width: 30%;
+    height: 100px;
+    padding: 15px;
+    margin: 20px;
+    border-radius: 20px;
+    text-align: center;
+}
+.icon img{
+    height: 100px;
+}

@@ -1,5 +1,6 @@
 // import './App.css';
 import Route from './components/routes'
+import "./components/style/variable.css"
 
 function App() {
   return (

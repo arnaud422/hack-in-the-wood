@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
+
+:root{
+	--blue: linear-gradient(#0b60c1,#338CF1);
+	--green: linear-gradient(#25ca75, #30D680);
+	--yellow: linear-gradient(#ffe66a,#FFE046);
+	--red: linear-gradient(#fd626c, #F83340);
+	--white: #F1F3F9;
+	--black: linear-gradient(#1E1F22);
+	--black-shadow: #1e1f2244;
+}
