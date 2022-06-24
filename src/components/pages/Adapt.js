@@ -29,6 +29,7 @@ const Adapt = () => {
 
     function getLocation() {
         if (navigator.geolocation) {
+            console.log('test')
             navigator.geolocation.getCurrentPosition(showPosition);
         } else { 
           return false
@@ -37,6 +38,7 @@ const Adapt = () => {
 
       function showPosition(position) {
         const location = arrets.stops.find((spot)=> spot.name === arret)
+        console.log(location)
         if(location === undefined) return
         // console.log(location.Latitude)
         console.log(position.coords.latitude,position.coords.longitude)
@@ -56,7 +58,7 @@ const Adapt = () => {
     }
 
     function estAuPost(){
-        setInterval(getLocation(),1000)
+        setInterval(()=>{getLocation()},1000)
     }
     
     // useEffect(()=>{
