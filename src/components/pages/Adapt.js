@@ -50,7 +50,8 @@ const Adapt = () => {
         if(location === undefined) return
 
         const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
-        setDist(long)
+        document.getElementById('test').innerText = `${position.coords.latitude} ET ${position.coords.longitude}`
+        
         if(long <= 2){
             vibrate()
         }      
@@ -81,7 +82,8 @@ const Adapt = () => {
                        arrets.stops.map((arret, i)=> <option value={arret.name} key={i}/>)         
                     }
                 </datalist>
-                <span className='dist'>{dist}</span>
+                {/* <span className='dist'>{dist}</span> */}
+                <span className='dist' id="test"></span>
             </div>
         </>
     );
