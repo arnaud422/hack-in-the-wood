@@ -29,7 +29,6 @@ const Adapt = () => {
 
     function getLocation() {
         if (navigator.geolocation) {
-            console.log('test')
             navigator.geolocation.watchPosition(showPosition);
         } else { 
           return false
@@ -45,6 +44,13 @@ const Adapt = () => {
         const long = distance(position.coords.latitude,position.coords.longitude, location.Latitude, location.Longitude)
         setDist(`${long}`)
         console.log(long)
+
+        var infopos = "Position déterminée :\n";
+        infopos += "Latitude : "+position.coords.latitude +"\n";
+        infopos += "Longitude: "+position.coords.longitude+"\n";
+        infopos += "Altitude : "+position.coords.altitude +"\n";
+        infopos += "Vitesse  : "+position.coords.speed +"\n";
+        document.getElementById("infoposition").innerHTML = infopos;
         if(long <= 2){
             vibrate()
         }      
@@ -58,7 +64,8 @@ const Adapt = () => {
     }
 
     function estAuPost(){
-        setInterval(()=>{getLocation()},1000)
+        // setInterval(()=>{getLocation()},1000)
+        getLocation()
     }
     
     // useEffect(()=>{
@@ -85,6 +92,7 @@ const Adapt = () => {
                     }
                 </datalist>
                 <span className='dist'>{dist}</span>
+                <span id='infoposition'></span>
             </div>
         </>
     );
