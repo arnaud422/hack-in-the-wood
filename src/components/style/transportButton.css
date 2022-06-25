@@ -7,13 +7,15 @@ body{
 }
 
 .icon{
-    width: 30%;
-    height: 100px;
-    padding: 15px;
-    margin: 20px;
-    border-radius: 20px;
-    text-align: center;
+    width: 27vw;
+    height: 27vw;
+    margin: 4vw;
+    margin-bottom: 5vw;
+    padding: 5vw;
+    border-radius: 30px;
+    cursor: pointer;
 }
 .icon img{
-    height: 100px;
+    width: 27vw;
+    height: 27vw;
 }
