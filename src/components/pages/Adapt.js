@@ -37,7 +37,7 @@ const Adapt = () => {
   }
 
   const vibrate = (distance) => {
-    window.navigator.vibrate([100, distance * 150, 100]);
+    window.navigator.vibrate([100, distance * 200, 100]);
   };
 
   const handleArrets = (e) => {
