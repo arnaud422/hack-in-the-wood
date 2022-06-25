@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import TransportBtn from "../transportButton";
 import "../style/adapt.css";
+import { unwatchFile } from "fs";
 
 function usePosition() {
   const [position, setPosition] = useState();
@@ -9,7 +10,7 @@ function usePosition() {
     if (navigator.geolocation) {
       navigator.geolocation.watchPosition(
         (laPosition) => {
-            setPosition(laPosition)
+          setPosition(laPosition);
         },
         (err) => {
           console.log("erreur: ", err);
@@ -17,16 +18,14 @@ function usePosition() {
         { enableHighAccuracy: true, maximumAge: 100, timeout: 500000 }
       );
     }
-}, []);
-return position;
+  }, []);
+  return position;
 }
 
-
 const Adapt = () => {
-
   const [arret, setArret] = useState();
   const [transport, setTransport] = useState(true);
-  const [enCours, setEnCours] = useState(false)
+  const [enCours, setEnCours] = useState(false);
   const position = usePosition();
   const [distanceTrajet, setDistance] = useState();
 
@@ -39,18 +38,39 @@ const Adapt = () => {
     ],
   };
 
-  useEffect(()=>{
-    if(enCours){
-        const stop = arrets.stops.find((spot)=> spot.name === arret)
-        if(stop === undefined)return
-        setDistance(distance(position.coords.latitude, position.coords.longitude, stop.Latitude, stop.Longitude))
+  useEffect(() => {
+    if (enCours) {
+      const stop = arrets.stops.find((spot) => spot.name === arret);
+      if (stop === undefined) return;
+      setDistance(
+        distance(
+          position.coords.latitude,
+          position.coords.longitude,
+          stop.Latitude,
+          stop.Longitude
+        )
+      );
 
-        if(distanceTrajet <= 20){
-            window.navigator.vibrate([200,distanceTrajet*150, 200])
+      if (distanceTrajet <= 20) {
+
+        switch (distanceTrajet) {
+            case distanceTrajet > 12:
+                window.navigator.vibrate([200, distanceTrajet * 100, 200]);
+                break;
+            case distanceTrajet < 7:
+                window.navigator.vibrate([200, distanceTrajet * 70, 200]);
+                break;
+            case distanceTrajet >= 0:
+                window.navigator.vibrate([200, distanceTrajet * 5, 200]);
+                break;
+        
+            default:
+                window.navigator.vibrate([200, distanceTrajet * 150, 200]);
         }
+        
+      }
     }
-  }, [enCours, position])
-
+  }, [enCours, position]);
 
   function distance(lat1, lon1, lat2, lon2) {
     var R = 6378.137;
@@ -70,8 +90,8 @@ const Adapt = () => {
   function handleTransport() {
     setTransport(!transport);
   }
-  function handleEnCours(){
-    setEnCours(s => !s)
+  function handleEnCours() {
+    setEnCours((s) => !s);
   }
 
   const handleArrets = (e) => {
@@ -125,7 +145,8 @@ const Adapt = () => {
               ))}
             </datalist>
           </div>
-          <button onClick={handleEnCours}>commencer</button>{distanceTrajet}
+          <button onClick={handleEnCours}>commencer</button>
+          {distanceTrajet}
         </>
       )}
     </>
