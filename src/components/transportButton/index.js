@@ -10,7 +10,7 @@ const TransportBtn = (props) => {
     }
     return (
         <div className='icon' style={btnStyle}>
-            <img src={`/icons/${transport}-ico.svg`} alt={transport} />
+            <img src={`%PUBLIC_URL%/icons/${transport}-ico.svg`} alt={transport} />
         </div>
     );
 };

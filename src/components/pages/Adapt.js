@@ -37,6 +37,13 @@ const Adapt = () => {
     ],
   };
 
+  function vibrate(...ms){
+    window.navigator.vibrate(...ms)
+    return new Promise((resolve) =>{
+      setTimeout(resolve(), ...ms.reduce((pre,curr)=>pre+curr, 100))
+    })
+  }
+
   useEffect(() => {
     if (enCours) {
       const stop = arrets.stops.find((spot) => spot.name === arret);
@@ -53,11 +60,11 @@ const Adapt = () => {
       if (distanceTrajet <= 20) {
         navigator.vibrate(0);
         if (distanceTrajet >= 15) {
-          window.navigator.vibrate([1500, 4000, 1500]);
+          vibrate(1500, 3000, 1500).then(()=>console.log('test'))
         } else if (distanceTrajet >= 8) {
-          window.navigator.vibrate([800, 2000, 800]);
+          vibrate(800, 2000, 800).then(()=>console.log('test'))
         } else if (distanceTrajet) {
-          window.navigator.vibrate([200, 500, 200]);
+          vibrate(200, 500, 200).then(()=>console.log('test'))
         }
       }
     }
