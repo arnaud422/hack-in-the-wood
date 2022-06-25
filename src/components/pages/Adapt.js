@@ -174,7 +174,7 @@ const Adapt = () => {
                     "Commencer"
                   )
                 }
-              </button>
+              </button>{distanceTrajet}
             </div>
           </div>
           {
