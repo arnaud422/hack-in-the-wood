@@ -44,7 +44,7 @@ const Adapt = () => {
     })
   }
 
-  useEffect(async () => {
+  useEffect(() => {
     if (enCours) {
       const stop = arrets.stops.find((spot) => spot.name === arret);
       if (stop === undefined) return;
@@ -60,11 +60,11 @@ const Adapt = () => {
       if (distanceTrajet <= 20) {
         navigator.vibrate(0);
         if (distanceTrajet >= 15) {
-          await vibrate(1500, 3000, 1500)
+          vibrate(1500, 3000, 1500).then(()=>{console.log('test')})
         } else if (distanceTrajet >= 8) {
-          await vibrate(800, 2000, 800)
+          vibrate(800, 2000, 800).then(()=>{console.log('test')})
         } else if (distanceTrajet) {
-          await vibrate(200, 500, 200)
+          vibrate(200, 500, 200).then(()=>{console.log('test')})
         }
       }
     }
