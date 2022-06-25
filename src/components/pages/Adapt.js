@@ -10,10 +10,10 @@ const Adapt = () => {
 
   const arrets = {
     stops: [
-      { name: "Tente fond", Latitude: 50.601759, Longitude: 3.510466 },
-      { name: "Maker Lab", Latitude: 50.601767, Longitude: 3.510722 },
-      { name: "Point info", Latitude: 50.601324, Longitude: 3.511161 },
-      { name: "Entrée", Latitude: 50.601096, Longitude: 3.511567 },
+      { Name: "Tente fond", Latitude: 50.601759, Longitude: 3.510466 },
+      { Name: "Maker Lab", Latitude: 50.601767, Longitude: 3.510722 },
+      { Name: "Point info", Latitude: 50.601324, Longitude: 3.511161 },
+      { Name: "Entrée", Latitude: 50.601096, Longitude: 3.511567 },
     ],
   };
 
@@ -30,17 +30,17 @@ const Adapt = () => {
       return false;
     }
 
-    addTecData();
+    // addTecData();
   }, [addTecData]);
 
   function addTecData() {
-    console.log("test");
     fetch("https://static.tectime.be/stops?all=true")
       .then((response) => response.json())
       .then((data) => triDataStops(data.StopsResult)); //setArrets(data.StopsResult)
   }
 
   function triDataStops(data) {
+
     const stops = data.filter(
       (stop) =>
         distance(
@@ -48,9 +48,13 @@ const Adapt = () => {
           positionUser.coords.longitude,
           stop.Latitude,
           stop.Longitude
-        ) < 30000
-    );
-    console.log(stops);
+        ) < 40000
+    )
+    
+    for(let i=0; i<stops.length-1;i++){
+        arrets.stops.push({Name:stops[i].Name, Latitude:stops[i].Latitude, Longitude:stops[i].Longitude})
+    }
+    console.log(arrets)
   }
 
   function distance(lat1, lon1, lat2, lon2) {
