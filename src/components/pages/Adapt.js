@@ -37,7 +37,7 @@ const Adapt = () => {
   }
 
   const vibrate = (distance) => {
-    window.navigator.vibrate([200, distance * 150, 200]);
+    window.navigator.vibrate([100, distance * 150, 100]);
   };
 
   const handleArrets = (e) => {
@@ -52,7 +52,7 @@ const Adapt = () => {
     }
   }
 
-  function showPosition(position) {
+  async function showPosition(position) {
     const stop = arrets.stops.find((spot) => spot.name === arret);
     let long = distance(
       position.coords.latitude,
@@ -62,7 +62,7 @@ const Adapt = () => {
     );
     setDist(long);
     if (long < 20) {
-      vibrate(distance);
+      await vibrate(distance);
     }
   }
 
