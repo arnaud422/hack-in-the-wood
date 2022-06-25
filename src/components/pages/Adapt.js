@@ -38,7 +38,8 @@ const Adapt = () => {
 
   const vibrate = () => {
     console.log('vibration')
-    window.navigator.vibrate([200,dist*100,200])
+    const time = dist*100
+    window.navigator.vibrate([200,time,200])
   };
 
   const handleArrets = (e) => {
