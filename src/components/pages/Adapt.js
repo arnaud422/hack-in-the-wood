@@ -37,7 +37,7 @@ const Adapt = () => {
   }
 
   const vibrate = () => {
-    window.navigator.vibrate([100]);
+    window.navigator.vibrate(100);
   };
 
   const handleArrets = (e) => {
