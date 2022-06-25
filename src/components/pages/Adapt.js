@@ -1,12 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import TransportBtn from "../transportButton";
 import "../style/adapt.css";
 
+function usePosition() {
+  const [position, setPosition] = useState();
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+        (laPosition) => {
+            setPosition(laPosition)
+        },
+        (err) => {
+          console.log("erreur: ", err);
+        },
+        { enableHighAccuracy: true, maximumAge: 100, timeout: 500000 }
+      );
+    }
+}, []);
+return position;
+}
+
+
 const Adapt = () => {
+
   const [arret, setArret] = useState();
-  const [userPosition, setUserPosition] = useState();
-  const [dist, setDist] = useState();
   const [transport, setTransport] = useState(true);
+  const [enCours, setEnCours] = useState(false)
+  const position = usePosition();
+  const [distanceTrajet, setDistance] = useState();
 
   const arrets = {
     stops: [
@@ -17,9 +39,18 @@ const Adapt = () => {
     ],
   };
 
-  function handleTransport() {
-    setTransport(!transport);
-  }
+  useEffect(()=>{
+    if(enCours){
+        const stop = arrets.stops.find((spot)=> spot.name === arret)
+        if(stop === undefined)return
+        setDistance(distance(position.coords.latitude, position.coords.longitude, stop.Latitude, stop.Longitude))
+
+        if(distanceTrajet <= 20){
+            window.navigator.vibrate([200,distanceTrajet*150, 200])
+        }
+    }
+  }, [enCours])
+
 
   function distance(lat1, lon1, lat2, lon2) {
     var R = 6378.137;
@@ -36,36 +67,16 @@ const Adapt = () => {
     return Math.floor(d * 1000);
   }
 
-//   const vibrate = () => {
-//     setInterval(window.navigator.vibrate(200), dist*100)
-//   };
+  function handleTransport() {
+    setTransport(!transport);
+  }
+  function handleEnCours(){
+    setEnCours(s => !s)
+  }
 
   const handleArrets = (e) => {
     setArret(e.target.value);
   };
-
-  function geoLoc(){
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(showPosition, err=>{console.log(err)},  { enableHighAccuracy: true, maximumAge: 100, timeout: 500000 });
-    } else { 
-      return false
-    }
-  }
-
-  function showPosition(position) {
-    const stop = arrets.stops.find((spot) => spot.name === arret);
-    console.log(stop)
-    if(stop===undefined)return 
-
-    let long = distance(
-      position.coords.latitude,
-      position.coords.longitude,
-      stop.Latitude,
-      stop.Longitude
-    );
-    setDist(long);
-    setInterval(window.navigator.vibrate(200), dist*200)
-  }
 
   return (
     <>
@@ -114,7 +125,7 @@ const Adapt = () => {
               ))}
             </datalist>
           </div>
-          <button onClick={geoLoc}>commencer</button> <span>{dist}</span>
+          <button onClick={handleEnCours}>commencer</button>
         </>
       )}
     </>
