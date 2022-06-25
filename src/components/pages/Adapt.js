@@ -63,7 +63,7 @@ const Adapt = () => {
     setDist(long);
 
     if (long < 20) {
-       setInterval(vibrate, 150*long)
+       setInterval(vibrate, 150*dist)
     }
   }
 
