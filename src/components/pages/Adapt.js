@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import TransportBtn from "../transportButton";
 import "../style/adapt.css";
 
@@ -51,18 +51,16 @@ const Adapt = () => {
       );
 
       if (distanceTrajet <= 20) {
-
-        if(distanceTrajet >= 15){
-            window.navigator.vibrate([1500, 4000, 1500]);
-        }else if(distanceTrajet >= 8)
-        {
-            window.navigator.vibrate([800, 2000, 800]);
-        }else if(distanceTrajet ){
-            window.navigator.vibrate([200, 500, 200]);
+        if (distanceTrajet >= 15) {
+          window.navigator.vibrate([1500, 4000, 1500]);
+        } else if (distanceTrajet >= 8) {
+          window.navigator.vibrate([800, 2000, 800]);
+        } else if (distanceTrajet) {
+          window.navigator.vibrate([200, 500, 200]);
         }
       }
     }
-  }, [enCours, position]);
+  }, [enCours, position, arrets.stops, arret, distanceTrajet]);
 
   function distance(lat1, lon1, lat2, lon2) {
     var R = 6378.137;
@@ -93,52 +91,79 @@ const Adapt = () => {
   return (
     <>
       {transport ? (
-        <div className="box-transport-method">
-          <span onClick={handleTransport}>
-            <TransportBtn
-              transport={"pied"}
-              bgColor={"linear-gradient(#fd626c,#F83340)"}
-            />
-          </span>
-          <span>
-            <TransportBtn
-              transport={"bus"}
-              bgColor={"linear-gradient(#FFE046,#ffc600)"}
-            />
-          </span>
-          <span>
-            <TransportBtn
-              transport={"tram"}
-              bgColor={"linear-gradient(#30D680,#00c94c)"}
-            />
-          </span>
-          <span>
-            <TransportBtn
-              transport={"train"}
-              bgColor={"linear-gradient(#338CF1,#0b60c1)"}
-            />
-          </span>
-        </div>
+        <>
+          <div className="logo"></div>
+          <div className="box-transport-method">
+            <span onClick={handleTransport}>
+              <TransportBtn
+                transport={"pied"}
+                bgColor={"linear-gradient(#fd626c,#F83340)"}
+              />
+            </span>
+            <span>
+              <TransportBtn
+                transport={"bus"}
+                bgColor={"linear-gradient(#FFE046,#ffc600)"}
+              />
+            </span>
+            <span>
+              <TransportBtn
+                transport={"tram"}
+                bgColor={"linear-gradient(#30D680,#00c94c)"}
+              />
+            </span>
+            <span>
+              <TransportBtn
+                transport={"train"}
+                bgColor={"linear-gradient(#338CF1,#0b60c1)"}
+              />
+            </span>
+          </div>
+        </>
       ) : (
         <>
-          <div className="choice-stops">
-            <svg
-              className="choise-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 512 512"
-            >
-              <path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z" />
-            </svg>
-            <input list="stops" id="search" onChange={handleArrets} />
+          <div className="container">
+            <div>
+              <h1 className="title-1">Veuillez choisir votre arrêt</h1>
+              <div className="choice-stops">
+                <svg
+                  className="choise-icon"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 512 512"
+                >
+                  <path d="M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z" />
+                </svg>
+                <input list="stops" id="search" onChange={handleArrets} />
+              </div>
 
-            <datalist id="stops">
-              {arrets.stops.map((arret, i) => (
-                <option value={arret.name} key={i} />
-              ))}
-            </datalist>
+              <datalist id="stops">
+                {arrets.stops.map((arret, i) => (
+                  <option value={arret.name} key={i} />
+                ))}
+              </datalist>
+            </div>
+            <div className="start-button">
+              <button>Commencer</button>
+            </div>
           </div>
-          <button onClick={handleEnCours}>commencer</button>
-          {distanceTrajet}
+
+          <div className="loader-wrapper">
+            <div className="truck-wrapper">
+              <div className="truck">
+                <div className="truck-container"></div>
+                <div className="glases"></div>
+                <div className="bonet"></div>
+
+                <div className="base"></div>
+
+                <div className="base-aux"></div>
+                <div className="wheel-back"></div>
+                <div className="wheel-front"></div>
+
+                <div className="smoke"></div>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </>
