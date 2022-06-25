@@ -54,14 +54,14 @@ const Adapt = () => {
 
         switch (distanceTrajet) {
             case distanceTrajet > 12:
-                window.navigator.vibrate([100, 1000, 100]);
+                window.navigator.vibrate([2500, 1000, 2500]);
                 break;
-            case distanceTrajet < 5:
-                window.navigator.vibrate([20, 3, 20]);
+            case distanceTrajet < 6:
+                window.navigator.vibrate(2000);
                 break;
         
             default:
-                window.navigator.vibrate([200, 2000, 200]);
+                window.navigator.vibrate([1500, 300, 1500]);
         }
         
       }
