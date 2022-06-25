@@ -51,9 +51,10 @@ const Adapt = () => {
       );
 
       if (distanceTrajet <= 20) {
-        if(distanceTrajet > 15){
+
+        if(distanceTrajet >= 15){
             window.navigator.vibrate([1500, 1000, 1500]);
-        }else if(distanceTrajet > 6)
+        }else if(distanceTrajet >= 8)
         {
             window.navigator.vibrate([800, 400, 800]);
         }else if(distanceTrajet ){
