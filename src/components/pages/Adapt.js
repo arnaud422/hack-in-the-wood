@@ -143,7 +143,7 @@ const Adapt = () => {
               </datalist>
             </div>
             <div className="start-button">
-              <button>Commencer</button>
+              <button onClick={handleEnCours}>Commencer</button>{distanceTrajet}
             </div>
           </div>
 
