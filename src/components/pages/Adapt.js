@@ -10,6 +10,11 @@ function usePosition() {
       navigator.geolocation.watchPosition(
         (laPosition) => {
           setPosition(laPosition);
+          if (Notification.permission !== "denided"){
+            Notification.requestPermission().then(permission => {
+                console.log(permission);
+            });
+          }
         },
         (err) => {
           console.log("erreur: ", err);
@@ -37,6 +42,15 @@ const Adapt = () => {
     ],
   };
 
+  
+  function Notif() {
+    console.log('notif')
+    const notification = new Notification(
+        "Attention !", {
+        body: "Hey tu es pas loin de ton arrêt, tu dois sonner pour descendre !"
+    });
+  }
+
   function vibrate(...ms){
     window.navigator.vibrate(...ms)
     return new Promise((resolve) =>{
@@ -45,9 +59,11 @@ const Adapt = () => {
   }
 
   useEffect(() => {
-    if (enCours) {
+ 
+    if (enCours) { 
       const stop = arrets.stops.find((spot) => spot.name === arret);
       if (stop === undefined) return;
+      // notif()
       setDistance(
         distance(
           position.coords.latitude,
@@ -60,6 +76,9 @@ const Adapt = () => {
       if (distanceTrajet <= 7) {
         navigator.vibrate(0);
         vibrate(4000).then(()=>{console.log('test')})
+      }
+      if(distanceTrajet === 20){
+      Notif()
       }
     }
   }, [enCours, position, arrets.stops, arret, distanceTrajet]);
