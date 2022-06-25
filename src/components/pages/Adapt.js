@@ -77,8 +77,8 @@ const Adapt = () => {
         navigator.vibrate(0);
         vibrate(4000).then(()=>{console.log('test')})
       }
-      if(distanceTrajet === 20){
-      Notif()
+      if(distanceTrajet <= 20){
+        Notif()
       }
     }
   }, [enCours, position, arrets.stops, arret, distanceTrajet]);
