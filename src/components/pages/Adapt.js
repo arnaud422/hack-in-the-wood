@@ -57,10 +57,10 @@ const Adapt = () => {
                 window.navigator.vibrate([200, distanceTrajet * 100, 200]);
                 break;
             case distanceTrajet < 7:
-                window.navigator.vibrate([200, distanceTrajet * 70, 200]);
+                window.navigator.vibrate([100, distanceTrajet * 70, 100]);
                 break;
             case distanceTrajet >= 0:
-                window.navigator.vibrate([200, distanceTrajet * 5, 200]);
+                window.navigator.vibrate([50, distanceTrajet * 5, 50]);
                 break;
         
             default:
