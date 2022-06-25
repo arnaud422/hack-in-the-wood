@@ -53,12 +53,12 @@ const Adapt = () => {
       if (distanceTrajet <= 20) {
 
         if(distanceTrajet >= 15){
-            window.navigator.vibrate([1500, 1000, 1500]);
+            window.navigator.vibrate([1500, 4000, 1500]);
         }else if(distanceTrajet >= 8)
         {
-            window.navigator.vibrate([800, 400, 800]);
+            window.navigator.vibrate([800, 2000, 800]);
         }else if(distanceTrajet ){
-            window.navigator.vibrate([200, 50, 200]);
+            window.navigator.vibrate([200, 500, 200]);
         }
       }
     }
