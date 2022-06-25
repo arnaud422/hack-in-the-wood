@@ -44,7 +44,6 @@ const Adapt = () => {
 	}
 
 	const vibrate = (distance)=>{
-        if(distance)
 		window.navigator.vibrate([200,distance*150,200])
 	}
 
@@ -59,6 +58,7 @@ const Adapt = () => {
       function searchStops(){
         const stop = arrets.stops.find((spot) => spot.name === arret)
         while(distance(userPosition.latitude,userPosition.longitude, stop.Latitude,stop.Longitude) > 0){
+            setDist(distance(userPosition.latitude,userPosition.longitude, stop.Latitude,stop.Longitude))
             if(distance < 20){
                 vibrate(distance)
             }
@@ -87,7 +87,7 @@ const Adapt = () => {
                             }
                         </datalist>
                     </div>
-                    <button >commencer</button>
+                    <button onClick={searchStops}>commencer</button> <span>{dist}</span>
                 </>
             )
         }
