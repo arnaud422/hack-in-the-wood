@@ -50,6 +50,8 @@ const Adapt = () => {
         "Attention !", {
         body: "Hey tu es pas loin de ton arrêt, tu dois sonner pour descendre !"
     });
+
+    setTimeout(() => notification.close(), 5*1000);
   }
 
   function vibrate(...ms){
@@ -171,7 +173,7 @@ const Adapt = () => {
               </datalist>
             </div>
             <div className="start-button">
-            <button onClick={handleEnCours}>
+            <button onClick={Notif}>
                 {
                   enCours ? (
                     "Annuler"
