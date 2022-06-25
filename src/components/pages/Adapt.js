@@ -37,7 +37,7 @@ const Adapt = () => {
   }
 
   const vibrate = () => {
-    window.navigator.vibrate(100);
+    window.navigator.vibrate(200);
   };
 
   const handleArrets = (e) => {
@@ -63,7 +63,7 @@ const Adapt = () => {
     setDist(long);
 
     if (long < 20) {
-       setInterval(vibrate, 150*dist)
+       setInterval(vibrate, 150*long)
     }
   }
 
