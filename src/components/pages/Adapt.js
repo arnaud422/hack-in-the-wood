@@ -57,15 +57,9 @@ const Adapt = () => {
         )
       );
 
-      if (distanceTrajet <= 20) {
+      if (distanceTrajet <= 7) {
         navigator.vibrate(0);
-        if (distanceTrajet >= 15) {
-          vibrate(800, 800, 800).then(()=>{console.log('test')})
-        } else if (distanceTrajet >= 5) {
-          vibrate(500, 500, 500).then(()=>{console.log('test')})
-        } else if (distanceTrajet) {
-          vibrate(1500, 2000, 1500).then(()=>{console.log('test')})
-        }
+        vibrate(4000).then(()=>{console.log('test')})
       }
     }
   }, [enCours, position, arrets.stops, arret, distanceTrajet]);
@@ -132,7 +126,9 @@ const Adapt = () => {
         <>
           <div className="container">
             <div>
-              <h1 className="title-1">Veuillez choisir votre arrêt</h1>
+              {
+                !enCours && <h1 className="title-1">Veuillez choisir votre arrêt</h1>
+              }
               <div className="choice-stops">
                 <svg
                   className="choise-icon"
@@ -151,11 +147,20 @@ const Adapt = () => {
               </datalist>
             </div>
             <div className="start-button">
-              <button onClick={handleEnCours}>Commencer</button>{distanceTrajet}
+            <button onClick={handleEnCours}>
+                {
+                  enCours ? (
+                    "Annuler"
+                  ) :(
+                    "Commencer"
+                  )
+                }
+              </button>
             </div>
           </div>
-
-          <div className="loader-wrapper">
+          {
+            enCours && 
+            <div className="loader-wrapper">
             <div className="truck-wrapper">
               <div className="truck">
                 <div className="truck-container"></div>
@@ -172,6 +177,8 @@ const Adapt = () => {
               </div>
             </div>
           </div>
+          }
+          
         </>
       )}
     </>
