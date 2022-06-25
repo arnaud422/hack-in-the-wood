@@ -32,6 +32,7 @@ const Adapt = () => {
   const [enCours, setEnCours] = useState(false);
   const position = usePosition();
   const [distanceTrajet, setDistance] = useState();
+  const [ouiNotif, setOuiNotif] = useState(true)
 
   const arrets = {
     stops: [
@@ -58,6 +59,7 @@ const Adapt = () => {
     })
   }
 
+
   useEffect(() => {
  
     if (enCours) { 
@@ -78,7 +80,10 @@ const Adapt = () => {
         vibrate(4000).then(()=>{console.log('test')})
       }
       if(distanceTrajet <= 20){
-        Notif()
+        if(ouiNotif){
+          Notif()
+          setOuiNotif(false)
+        }
       }
     }
   }, [enCours, position, arrets.stops, arret, distanceTrajet]);
