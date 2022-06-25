@@ -60,7 +60,7 @@ const Adapt = () => {
       if (distanceTrajet <= 20) {
         navigator.vibrate(0);
         if (distanceTrajet >= 15) {
-          vibrate(800, 40000, 800).then(()=>{console.log('test')})
+          vibrate(4000, 800, 4000).then(()=>{console.log('test')})
         } else if (distanceTrajet >= 5) {
           vibrate(800, 2000, 800).then(()=>{console.log('test')})
         } else if (distanceTrajet) {
