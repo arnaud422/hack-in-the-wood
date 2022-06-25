@@ -36,11 +36,9 @@ const Adapt = () => {
     return Math.floor(d * 1000);
   }
 
-  const vibrate = () => {
-    console.log('vibration')
-    const time = dist*100
-    window.navigator.vibrate([200,time,200])
-  };
+//   const vibrate = () => {
+//     setInterval(window.navigator.vibrate(200), dist*100)
+//   };
 
   const handleArrets = (e) => {
     setArret(e.target.value);
@@ -56,6 +54,9 @@ const Adapt = () => {
 
   function showPosition(position) {
     const stop = arrets.stops.find((spot) => spot.name === arret);
+    console.log(stop)
+    if(stop===undefined)return 
+
     let long = distance(
       position.coords.latitude,
       position.coords.longitude,
@@ -63,9 +64,7 @@ const Adapt = () => {
       stop.Longitude
     );
     setDist(long);
-    if(long<20){
-        vibrate(long)
-    }
+    setInterval(window.navigator.vibrate(200), dist*200)
   }
 
   return (
