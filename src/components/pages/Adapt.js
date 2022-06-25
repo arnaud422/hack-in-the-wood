@@ -44,13 +44,12 @@ const Adapt = () => {
         const stop = arrets.stops.find((spot)=> spot.name === arret)
         if(stop === undefined)return
         setDistance(distance(position.coords.latitude, position.coords.longitude, stop.Latitude, stop.Longitude))
-        console.log(distanceTrajet)
 
         if(distanceTrajet <= 20){
             window.navigator.vibrate([200,distanceTrajet*150, 200])
         }
     }
-  }, [enCours, distanceTrajet])
+  }, [enCours, position])
 
 
   function distance(lat1, lon1, lat2, lon2) {
